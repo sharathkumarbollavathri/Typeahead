@@ -71,7 +71,7 @@ const TypeaHeadComponent = () => {
 
     return (
         <div className="typeahead-container">
-            <h1>Type</h1>
+            <h1>Type A Head Component</h1>
             <input
                 type="text"
                 value={inputValue}

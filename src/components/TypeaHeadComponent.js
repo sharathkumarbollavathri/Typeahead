@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const TypeaHeadComponent = () => {
-    const [inputValue, setInputValue] = useState('');
-    const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+const Typeahead = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
-    const suggestions = [
+
+  const suggestions = [
 		"Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
 		"Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
 		"The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize",
@@ -55,39 +56,49 @@ const TypeaHeadComponent = () => {
 		"Zambia", "Zimbabwe"
 	];
 
-    const handleInputChange = (e) => {
-        const inputValue = e.target.value;
-        setInputValue(inputValue);
-        const filteredSuggestions = suggestions.filter(suggestion =>
-            suggestion.toLowerCase().includes(inputValue.toLowerCase())
-        );
-        setFilteredSuggestions(filteredSuggestions);
-    };
-
-    const handleSuggestionClick = (suggestion) => {
-        setInputValue(suggestion);
-        setFilteredSuggestions([]);
-    };
-
-    return (
-        <div className="typeahead-container">
-            <h1>Type A Head Component</h1>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="Type here..."
-                size={'39'}
-            />
-            <ul className="suggestions-list"data-testid="optionClicked">
-                {filteredSuggestions.map((suggestion, index) => (
-                    <li  key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                        {suggestion}
-                    </li>
-                ))}
-            </ul>
-        </div>
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setInputValue(inputValue);
+    const filteredSuggestions = suggestions.filter(suggestion =>
+      suggestion.toLowerCase().includes(inputValue.toLowerCase())
     );
+    setFilteredSuggestions(filteredSuggestions);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setFilteredSuggestions([]);
+  };
+
+  return (<>
+  <h1>Type A Head Component</h1>
+    <div className="typeahead-container">
+      
+
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder="Type country names here..."
+        size={'39'}
+      />
+      {filteredSuggestions.length === 0 && inputValue !== '' && (
+        <p className="error-message">Sorry, data is unavailable</p>
+      )}
+      {filteredSuggestions.length > 0 && (
+        <ul className="suggestions-list">
+          {filteredSuggestions.map((suggestion, index) => (
+            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    </>
+  );
 };
 
-export default TypeaHeadComponent;
+export default Typeahead;
+
+
